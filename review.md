@@ -4,6 +4,8 @@
 
 We've seen one Mapbox API in action. There are others: https://docs.mapbox.com/api/overview/.
 
+We can also create our own simple API services. These can be read-only, but often it is helpful to create read/write services as well, in order to build upon data that exists elsewhere.
+
 ## Web APIs
 
 There are a ton of useful web APIs built into most browsers. In this repository there are examples demonstrating [`geolocation`](webapis/geolocation) and [`localStorage`](webapis/localstorage), but there are many others: https://developer.mozilla.org/en-US/docs/Web/API.
