@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+.interface-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.map {
+  flex-grow: 1;
+  height: 100%;
+}
+
+.controls button {
+  width: 100%;
+  padding: 1rem;
+}
