@@ -6,6 +6,7 @@
     "http-server": "^14.1.0",
     "jest": "^27.4.7",
     "jest-puppeteer": "^6.0.3",
+    "knex": "^1.0.4",
     "nodemon": "^2.0.15",
     "pg": "^8.7.3"
   },

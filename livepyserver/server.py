@@ -1,33 +1,29 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
-from psycopg2 import connect as pg_connect
-from psycopg2.extras import RealDictCursor
+from sqlalchemy import create_engine
 
 app = Flask(__name__)
 CORS(app)
 
-conn = pg_connect(
-    host='localhost', port=5432, dbname='pa_voter_export',
-    user='postgres', password='postgres',
+engine = create_engine(
+    'postgresql://postgres:postgres@localhost:5432/pa_voter_export'
 )
 
 
-@app.route("/precinct/<int:precinct>.json")
+@app.route('/precinct/<int:precinct>.json')
 def get_precinct(precinct):
-    with conn.cursor(cursor_factory=RealDictCursor) as cursor:
-        sql = f'''
-            SELECT
-                "ID Number", "Last Name", "First Name", "Middle Name", "DOB",
-                "Voter Status", "Party Code", "House Number", "Street Name",
-                "Apartment Number", "Address Line 2", "City", "State", "Zip",
-                "Last Vote Date", "Precinct Code", "Precinct Split ID"
-            FROM full_voter_export
-            WHERE "District 1" = '{precinct}'
-        '''
+    sql = f'''
+        SELECT
+            "ID Number", "Last Name", "First Name", "Middle Name", "DOB",
+            "Voter Status", "Party Code", "House Number", "Street Name",
+            "Apartment Number", "Address Line 2", "City", "State", "Zip",
+            "Last Vote Date", "Precinct Code", "Precinct Split ID"
+        FROM full_voter_export
+        WHERE "District 1" = '{precinct}'
+    '''
 
-        cursor.execute(sql)
-        data = cursor.fetchall()
-        return jsonify(data)
+    rows = engine.execute(sql).fetchall()
+    return jsonify([dict(row) for row in rows])
 
 
 if __name__ == '__main__':

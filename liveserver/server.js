@@ -1,31 +1,29 @@
 const express = require('express')
-var cors = require('cors')
-const { Client } = require('pg')
+const cors = require('cors')
+const knex = require('knex')
 
 const app = express()
 app.use(cors())
 
-const client = new Client({
-  host: 'localhost', port: 5432, database: 'pa_voter_export',
-  user: 'postgres', password: 'postgres',
-})
-client.connect()
+const engine = knex({
+  client: 'pg',
+  connection: 'postgresql://postgres:postgres@localhost:5432/pa_voter_export'
+});
 
 
 app.get('/precinct/:precinct(\\d{4}).json$', (req, res) => {
-  const sql = `
-    SELECT
-        "ID Number", "Last Name", "First Name", "Middle Name", "DOB",
-        "Voter Status", "Party Code", "House Number", "Street Name",
-        "Apartment Number", "Address Line 2", "City", "State", "Zip",
-        "Last Vote Date", "Precinct Code", "Precinct Split ID"
-    FROM full_voter_export
-    WHERE "District 1" = '${req.params.precinct}'
+  sql = `
+      SELECT
+          "ID Number", "Last Name", "First Name", "Middle Name", "DOB",
+          "Voter Status", "Party Code", "House Number", "Street Name",
+          "Apartment Number", "Address Line 2", "City", "State", "Zip",
+          "Last Vote Date", "Precinct Code", "Precinct Split ID"
+      FROM full_voter_export
+      WHERE "District 1" = '${req.params.precinct}'
   `
 
-  client.query(sql, (err, query_res) => {
-    const data = query_res.rows
-    res.send(JSON.stringify(data))
+  engine.raw(sql).then(data => {
+    res.send(JSON.stringify(data.rows));
   })
 })
 
