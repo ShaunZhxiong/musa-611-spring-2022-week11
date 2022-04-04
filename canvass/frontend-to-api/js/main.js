@@ -2,14 +2,13 @@ const map = L.map('map').setView([39.95, -75.16], 16);
 const group = L.layerGroup().addTo(map);
 
 L.tileLayer('https://api.mapbox.com/styles/v1/mjumbe-test/cl0r2nu2q000s14q9vfkkdsfr/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWp1bWJlLXRlc3QiLCJhIjoiY2wwb3BudmZ3MWdyMjNkbzM1c2NrMGQwbSJ9.2ATDPobUwpa7Ou5jsJOGYA', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
-const precinct = '3927'
+const precinct = '3927';
 fetch(`http://localhost:3000/precinct/${precinct}.json`)
   .then(resp => resp.json())
   .then(data => {
-
     const neighborList = document.querySelector('.neighbors ul');
     neighborList.innerHTML = '';
 
@@ -39,8 +38,8 @@ fetch(`http://localhost:3000/precinct/${precinct}.json`)
         const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=${token}`;
         fetch(url)
           .then(resp => resp.json())
-          .then(data => {
-            const feature = data.features[0];
+          .then(geocoderData => {
+            const feature = geocoderData.features[0];
             const marker = L.geoJSON(feature);
             group.clearLayers();
             group.addLayer(marker);

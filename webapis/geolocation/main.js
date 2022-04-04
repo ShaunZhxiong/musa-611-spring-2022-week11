@@ -1,7 +1,9 @@
+/* eslint-disable no-use-before-define */
+
 const map = L.map('map').setView([39.95, -75.16], 16);
 
 L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {
-    attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'
+  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
 }).addTo(map);
 
 /*
@@ -34,33 +36,33 @@ trackingButton.addEventListener('click', () => {
 });
 
 
-const startTracking = function() {
+const startTracking = function () {
   // Start tracking the position.
-  console.log('Starting to track position...')
+  console.log('Starting to track position...');
   trackingID = navigator.geolocation.watchPosition(handlePositionUpdated);
 
   // Update the button text.
-  trackingButton.innerHTML = 'Stop Tracking Me.'
+  trackingButton.innerHTML = 'Stop Tracking Me.';
 };
 
 
-const stopTracking = function() {
+const stopTracking = function () {
   // Stop tracking the position.
   navigator.geolocation.clearWatch(trackingID);
   trackingID = null;
-  console.log('No longer tracking position...')
+  console.log('No longer tracking position...');
 
   // Update the marker style.
   positionMarker.setStyle(nonTrackingStyle);
 
   // Update the button text.
-  trackingButton.innerHTML = 'Track Me!'
+  trackingButton.innerHTML = 'Track Me!';
 };
 
 
-const handlePositionUpdated = function(position) {
+const handlePositionUpdated = function (position) {
   // Move the position marker to the
-  const latlng = [position.coords.latitude, position.coords.longitude]
+  const latlng = [position.coords.latitude, position.coords.longitude];
   positionMarker.setLatLng(latlng);
   map.panTo(latlng);
 

@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+
 /*
   When the page first loads we read the current value of the personName local
   storage key. If there's a value set to that key, then we show the value in the
@@ -15,13 +17,13 @@ changeNameButton.addEventListener('click', () => {
 });
 
 
-const saveNameToLocalStorage = function() {
+const saveNameToLocalStorage = function () {
   const newPersonName = personNameInput.value;
   localStorage.setItem('personName', newPersonName);
 };
 
 
-const showNameFromLocalStorage = function() {
+const showNameFromLocalStorage = function () {
   const personName = localStorage.getItem('personName');
   if (personName) {
     for (const el of personNameEls) {
