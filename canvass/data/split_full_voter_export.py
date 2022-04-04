@@ -37,7 +37,7 @@ def split_full_voter_export(outdir, fve):
 
         with csvpath.open('r') as csvfile:
             with jsonpath.open('w') as jsonfile:
-                reader = csv.DictReader(csvfile, fieldnames=fve_fields)
+                reader = csv.DictReader(csvfile)
                 json.dump(list(reader), jsonfile)
 
     print('Done.')
