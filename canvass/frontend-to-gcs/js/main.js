@@ -6,10 +6,6 @@ L.tileLayer('https://api.mapbox.com/styles/v1/mjumbe-test/cl0r2nu2q000s14q9vfkkd
 }).addTo(map);
 
 const precinct = '3927'
-// fetch(`http://localhost:3000/precinct/${precinct}.json`)
-//   .then(resp => resp.json())
-//   .then(data => {
-//
 fetch(`https://mjumbewu-musa_static_file_server.storage.googleapis.com/phila_voter_exports_20220307/precinct${precinct}.csv`)
   .then(resp => resp.text())
   .then(text => {
