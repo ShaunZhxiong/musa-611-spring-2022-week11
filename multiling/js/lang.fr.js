@@ -1,4 +1,4 @@
 const lang = {
     greeting : "Bonjour",
-    bathroomQuestion: "Ou sont les toilettes",
+    bathroomQuestion: "Où sont les toilettes",
 };
